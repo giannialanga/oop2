@@ -19,7 +19,6 @@ import java.awt.*;
  * Created by Gianni on 04/01/16.
  */
 public class Detail extends Pane {
-
     public Detail(MountainPM model, Controller controller) {
             public static String PATH_POSTERS = "../resources/poster/";
             public static String IMAGE_NO_POSTERS = "../resources/poster/no_poster.gif";
