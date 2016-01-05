@@ -1,7 +1,5 @@
 package Mountain;
 
-import Mountain.Mountain;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -18,7 +16,7 @@ import java.io.*;
 public class MountainPM {
 
 
-        private static final String FILE_PATH = "./Ressources/data/mountains.csv";
+        private static final String FILE_PATH = "./com.company/data/mountains.csv";
         private static final String STRING_BOL_TRUE = "X";
         private static final String STRING_BOL_FALSE = "";
         public static final String ACTION_INSERT = "insert";
@@ -42,7 +40,7 @@ public class MountainPM {
 
         public MountainPM() throws IOException, URISyntaxException {
             filterdList = list = readCSVfile(MountainPM.class.getResource(FILE_PATH).toURI());
-            selectedMountainId = list.get(0).hashCode(getMountainById());
+            selectedMountainId = list.get(0).getId();
         }
 
         public List<?> getList(){
@@ -54,7 +52,7 @@ public class MountainPM {
         }
 
 
-        public String getValueAt(int index, int col) {
+        public String getValueAt(double index, int col) {
             Mountain mountain = filterdList.get(index);
             switch (col) {
                 case 0:
