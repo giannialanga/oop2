@@ -1,14 +1,11 @@
 package Mountain;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import Search.FilterModule;
+
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
-import java.util.Set;
-import java.io.*;
 
 /**
  * Created by Gianni on 04/01/16.
@@ -34,13 +31,13 @@ public class MountainPM {
         private int selectedMountainId;
         public int observerIndex;
         public String observerAction = "";
-        private List<?> list = new ArrayList<>();
-        private List<?> filterdList = new ArrayList<>();
+        private List<Object> list = new ArrayList<>();
+        private List<Object> filterdList = new ArrayList<>();
         private String searchValue = "";
 
         public MountainPM() throws IOException, URISyntaxException {
             filterdList = list = readCSVfile(MountainPM.class.getResource(FILE_PATH).toURI());
-            selectedMountainId = list.get(0).getId();
+            selectedMountainId = list.get(0).hashCode();
         }
 
         public List<?> getList(){
@@ -104,10 +101,10 @@ public class MountainPM {
             notifyObservers();
         }
 
-        private static List<Mountain> readCSVfile(URI csvFileName) throws IOException {
+        private static List<Object> readCSVfile(URI csvFileName) throws IOException {
             String line;
             BufferedReader stream = null;
-            List<Mountain> csvData = new ArrayList<>();
+            List<Object> csvData = new ArrayList<>();
 
             try {
                 stream = new BufferedReader(new FileReader(new File(csvFileName)));
@@ -161,7 +158,7 @@ public class MountainPM {
         }
 
         public void add(Mountain mountain) {
-            final Comparator<Mountain> comp = (p1, p2) -> Integer.compare(p1.getId(), p2.getId());
+            final Comparator<Object> comp = (p1, p2) -> Integer.compare(p1.getId(), p2.getId());
             int maxId = this.list.stream().max(comp).get().getId();
             mountain.setId(maxId + 1);
             this.list.add(Mountain);
@@ -187,7 +184,7 @@ public class MountainPM {
 
         public int getIndexById(int id) {
             int counter = 0;
-            for (Mountain m : list) {
+            for (Object m : list) {
                 if (m.getId() == id) {
                     return counter;
                 }
@@ -200,12 +197,12 @@ public class MountainPM {
             return getIndexById(movie.getId());
         }
 
-        public Mountain getMountainById(int id) {
+        public Object getMountainById(int id) {
             int index = getIndexById(id);
             return list.get(index);
         }
 
-        public Mountain getMountainByIdIndex(int index) {
+        public Object getMountainByIdIndex(int index) {
 
             return filterdList.get(index);
         }
@@ -293,7 +290,7 @@ public class MountainPM {
                     br.write(csvFileHeader);
                     br.newLine();
                     // Add body
-                    for (Mountain mountain : this.list) {
+                    for (Object mountain : this.list) {
                         try {
                             br.write(mountain.toString());
                             br.newLine();
@@ -321,7 +318,7 @@ public class MountainPM {
         public void setSearchValue(String searchValue) {
             if (searchValue.length() > 2) {
                 this.searchValue = searchValue;
-                SearchFilterModule searchFilterModule = new SearchFilterModule(this);
+                FilterModule searchFilterModule = new FilterModule(this);
                 this.filterdList = searchFilterModule.filter(searchValue);
                 this.setSelectedMountainId(this.filterdList.get(0).getId());
             } else {
@@ -343,7 +340,7 @@ public class MountainPM {
         }
 
         public boolean editorIsValid() {
-            Mountain mountain= getMountainById(getSelectedMountainId());
+            Object mountain= getMountainById(getSelectedMountainId());
 
             mountain.setIsValid(false);
 

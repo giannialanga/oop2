@@ -197,7 +197,7 @@ public class Mountain implements Comparator<Mountain>, Comparable<Mountain> {
 
         @Override
         public int compareTo(Mountain o) {
-            return this.compare(this, compareMountain);
+            return this.compare(this, Mountain);
         }
 
         @Override
