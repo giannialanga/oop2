@@ -17,8 +17,6 @@ public class Mountain implements Comparator<Mountain>, Comparable<Mountain> {
         private boolean hasModified = false;
         private boolean isValid = true;
 
-
-
         private Integer id;
         private Double hoehe;
 
@@ -195,6 +193,7 @@ public class Mountain implements Comparator<Mountain>, Comparable<Mountain> {
             this.preview = preview;
         }
 
+       /*
         @Override
         public int compareTo(Mountain o) {
             return this.compare(this, Mountain);
@@ -206,6 +205,5 @@ public class Mountain implements Comparator<Mountain>, Comparable<Mountain> {
             int y2 = Double.parseDouble((o1.getHoehe() == null) ? "0" : o2.getHoehe());
             return y2 - y1;
         }
-    }
-
+         */
 }

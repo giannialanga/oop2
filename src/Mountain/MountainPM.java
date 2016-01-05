@@ -1,7 +1,8 @@
 package Mountain;
 
-import Search.FilterModule;
+import Mountain.*;
 
+import Search.FilterModule;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -49,7 +50,7 @@ public class MountainPM {
         }
 
 
-        public String getValueAt(double index, int col) {
+        public String getValueAt(Integer index, int col) {
             Mountain mountain = filterdList.get(index);
             switch (col) {
                 case 0:
