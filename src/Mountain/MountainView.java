@@ -3,25 +3,28 @@ package Mountain;
 import MountainApp.Controller;
 import Views.Table;
 import Views.Toolbar;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToolBar;
+import com.sun.org.apache.xpath.internal.operations.String;
+import javafx.animation.KeyFrame;
+import javafx.scene.control.*;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * Created by Gianni on 04/01/16.
  */
-public class MountainView extends  Stage {
+public class MountainView extends Stage {
 
         private ToolBar toolbar;
         private SplitPane splitPane;
         private final MountainPM model;
         private final Controller controller;
 
-        public MountainView(MountainPM, Mountain model, Controller controller) {
+        public MountainView(MountainPM model, Controller controller) {
             super("Mountain App");
-            this.model = this.model;
+            this.model = model;
             this.controller = controller;
         }
 
@@ -30,11 +33,11 @@ public class MountainView extends  Stage {
             Pane contents = layoutComponents();
             addEvents();
 
-            setPreferredSize(new Dimension(1400, 800));
+            setPreferredSize(new Pane(1400, 800));
 
             // Add Header Toolbar
-            contents.add(toolbar, BorderLayout.PAGE_START);
-            contents.add(splitPane, BorderLayout.CENTER);
+            contents.add(toolbar, Border.PAGE_START);
+            contents.add(splitPane, Border.CENTER);
             add(contents);
 
             pack();
@@ -51,36 +54,36 @@ public class MountainView extends  Stage {
             table.getColumnModel().getColumn(1).setResizable(false);
             table.getColumnModel().getColumn(0).setMaxWidth(25);
             table.getColumnModel().getColumn(1).setMaxWidth(50);
-            JScrollPane tableScrollPane = new JScrollPane(table);
-            splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, tableScrollPane, detailPanel);
+            ScrollPane tableScrollPane = new ScrollPane(table);
+            splitPane = new SplitPane(SplitPane.HORIZONTAL_SPLIT, true, tableScrollPane, detailPanel);
             splitPane.setDividerLocation(700);
 
             //set minimum Size of the Components
-            Dimension minimumSize = new Dimension(500, 500);
+            Pane minimumSize = new Pane(500, 500);
             tableScrollPane.setMinimumSize(minimumSize);
             detailPanel.setMinimumSize(minimumSize);
         }
 
         private Pane layoutComponents() {
-            JPanel panel = new JPanel();
-            panel.setLayout(new BorderLayout());
-            panel.setBackground(Color.gray);
+            Pane pane = new Pane();
+            pane.setLayout(new Border());
+            pane.setBackground(Color.GRAY);
             return panel;
         }
 
         private void addEvents() {
-            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            addWindowListener(new WindowAdapter() {
+            setDefaultCloseOperation(KeyFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new Window() {
                 @Override
-                public void windowClosing(WindowEvent e) {
-                    int answer = JOptionPane.showConfirmDialog(
+                public void windowClosing(Window e) {
+                    int answer = DialogPane.showConfirmDialog(
                             MountainView.this,
                             "Programm wirklich beenden?",
                             "Confirm",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.PLAIN_MESSAGE
+                            DialogPane.YES_NO_OPTION,
+                            DialogPane.PLAIN_MESSAGE
                     );
-                    if (answer == JOptionPane.YES_OPTION) {
+                    if (answer == DialogPane.YES_OPTION) {
                         System.exit(0);
                     }
                 }
